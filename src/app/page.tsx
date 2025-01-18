@@ -216,7 +216,7 @@ export default function Home() {
                               ))}
                             </div>
                             <p className="text-gray-600">
-                              "{t('hero.reviews.review1')}"
+                              &quot;{t('hero.reviews.review1')}&quot;
                             </p>
                             <div className="flex items-center space-x-2 mt-4">
                               <div className="h-10 w-10 rounded-full bg-blue-500" />

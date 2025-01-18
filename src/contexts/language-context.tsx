@@ -14,6 +14,13 @@ const LanguageContext = createContext<LanguageContextType>({
   setLanguage: () => {},
 });
 
+// 定义翻译对象的类型
+type TranslationType = {
+  [K in Locale]: {
+    [key: string]: string | { [key: string]: string | { [key: string]: string } }
+  }
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [currentLocale, setCurrentLocale] = useState<Locale>('en')
 
@@ -31,17 +38,17 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const t = (path: string) => {
     const keys = path.split('.')
-    let current: any = translations[currentLocale]
+    let current: TranslationType[Locale] = translations[currentLocale]
     
     for (const key of keys) {
       if (current[key] === undefined) {
         console.warn(`Translation missing for key: ${path} in locale: ${currentLocale}`)
         return path
       }
-      current = current[key]
+      current = current[key] as typeof current
     }
     
-    return current
+    return current as string
   }
 
   return (
