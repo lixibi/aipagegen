@@ -14,12 +14,14 @@ const LanguageContext = createContext<LanguageContextType>({
   setLanguage: () => {},
 });
 
-// 定义翻译对象的类型
+// 定义递归的翻译类型
+type TranslationValue = string | { [key: string]: TranslationValue };
+
 type TranslationType = {
   [K in Locale]: {
-    [key: string]: string | { [key: string]: string | { [key: string]: string } }
-  }
-}
+    [key: string]: TranslationValue;
+  };
+};
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [currentLocale, setCurrentLocale] = useState<Locale>('en')
@@ -38,17 +40,17 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const t = (path: string) => {
     const keys = path.split('.')
-    let current: TranslationType[Locale] = translations[currentLocale]
+    let current: TranslationValue = translations[currentLocale]
     
     for (const key of keys) {
-      if (current[key] === undefined) {
+      if (typeof current !== 'object' || current[key] === undefined) {
         console.warn(`Translation missing for key: ${path} in locale: ${currentLocale}`)
         return path
       }
-      current = current[key] as typeof current
+      current = current[key]
     }
     
-    return current as string
+    return typeof current === 'string' ? current : path
   }
 
   return (
