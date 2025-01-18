@@ -268,25 +268,31 @@ export default function Home() {
                 <Zap className="h-6 w-6" />
                 <span className="font-bold text-white">AipageGen</span>
               </Link>
-              <p className="mt-2 text-sm">© 2025 AipageGen. All rights reserved.</p>
+              <p className="mt-2 text-sm">{t('footer.copyright')}</p>
             </div>
             <div>
-              <h3 className="font-medium text-white mb-4">快速链接</h3>
+              <h3 className="font-medium text-white mb-4">{t('footer.quickLinks')}</h3>
               <ul className="space-y-2">
-                {["首页", "功能介绍", "价格", "常见问题", "联系我们"].map((item) => (
-                  <li key={item}>
-                    <Link href={`#${item}`} className="hover:text-white transition-colors">
-                      {item}
+                {[
+                  { name: t('nav.home'), href: '#home' },
+                  { name: t('nav.features'), href: '#features' },
+                  { name: t('nav.pricing'), href: '#pricing' },
+                  { name: t('nav.faq'), href: '#faq' },
+                  { name: t('nav.contact'), href: '#contact' }
+                ].map((item) => (
+                  <li key={item.name}>
+                    <Link href={item.href} className="hover:text-white transition-colors">
+                      {item.name}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <h3 className="font-medium text-white mb-4">联系我们</h3>
+              <h3 className="font-medium text-white mb-4">{t('footer.contact')}</h3>
               <ul className="space-y-2">
-                <li>邮箱：contact@aipagegen.com</li>
-                <li>电话：400-123-4567</li>
+                <li>{t('footer.email')}：contact@aipagegen.com</li>
+                <li>{t('footer.phone')}：400-123-4567</li>
               </ul>
             </div>
           </div>
