@@ -1,5 +1,6 @@
 "use client"
 
+import React from 'react'
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -15,7 +16,6 @@ import { Download, ArrowRight, Star, Zap, Shield, Layout, FileText } from 'lucid
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { useLanguage } from "@/contexts/language-context"
 
-// 注意：metadata 需要移动到一个单独的文件中，因为它不能在客户端组件中使用
 export default function Home() {
   const { t } = useLanguage()
   
@@ -216,7 +216,7 @@ export default function Home() {
                               ))}
                             </div>
                             <p className="text-gray-600">
-                              &quot;{t('hero.reviews.review1')}&quot;
+                              "{t('hero.reviews.review1')}"
                             </p>
                             <div className="flex items-center space-x-2 mt-4">
                               <div className="h-10 w-10 rounded-full bg-blue-500" />

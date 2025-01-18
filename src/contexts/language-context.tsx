@@ -6,12 +6,14 @@ import { translations } from '@/i18n/translations'
 
 interface LanguageContextType {
   language: string;
-  setLanguage: (language: string) => void;
+  setLanguage: (language: Locale) => void;
+  t: (key: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType>({
   language: 'en',
   setLanguage: () => {},
+  t: () => '',
 });
 
 // 定义递归的翻译类型
@@ -38,7 +40,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  const t = (path: string) => {
+  const t = (path: string): string => {
     const keys = path.split('.')
     let current: TranslationValue = translations[currentLocale]
     
@@ -54,7 +56,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <LanguageContext.Provider value={{ language: currentLocale, setLanguage }}>
+    <LanguageContext.Provider value={{ 
+      language: currentLocale, 
+      setLanguage,
+      t
+    }}>
       {children}
     </LanguageContext.Provider>
   )
