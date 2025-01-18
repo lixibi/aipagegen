@@ -13,7 +13,7 @@ import { locales, type Locale } from "@/i18n/locales"
 import { useLanguage } from "@/contexts/language-context"
 
 export function LanguageSwitcher() {
-  const { currentLocale, setLanguage } = useLanguage()
+  const { language, setLanguage } = useLanguage()
 
   return (
     <DropdownMenu>
@@ -28,7 +28,7 @@ export function LanguageSwitcher() {
           <DropdownMenuItem
             key={key}
             onClick={() => setLanguage(key as Locale)}
-            className={`cursor-pointer ${currentLocale === key ? 'bg-accent' : ''}`}
+            className={`cursor-pointer ${language === key ? 'bg-accent' : ''}`}
           >
             <span className="mr-2">{value.flag}</span>
             {value.name}
