@@ -4,13 +4,15 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import { type Locale } from '@/i18n/locales'
 import { translations } from '@/i18n/translations'
 
-type LanguageContextType = {
-  currentLocale: Locale
-  setLanguage: (locale: Locale) => void
-  t: (key: string) => string
+interface LanguageContextType {
+  language: string;
+  setLanguage: (language: string) => void;
 }
 
-const LanguageContext = createContext<LanguageContextType | null>(null)
+const LanguageContext = createContext<LanguageContextType>({
+  language: 'en',
+  setLanguage: () => {},
+});
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [currentLocale, setCurrentLocale] = useState<Locale>('en')
@@ -43,7 +45,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <LanguageContext.Provider value={{ currentLocale, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language: currentLocale, setLanguage }}>
       {children}
     </LanguageContext.Provider>
   )
